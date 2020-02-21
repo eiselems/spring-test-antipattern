@@ -34,6 +34,25 @@ internal class ExampleControllerTestAlternative {
             .andExpect(MockMvcResultMatchers.jsonPath("$.path").value(path))
             .andExpect(MockMvcResultMatchers.jsonPath("$.someNumber").value(id))
             .andExpect(MockMvcResultMatchers.jsonPath("$.query").value(bodyNumber.toString()))
+    }
 
+    @Test
+    fun getExampleResponse_givenOldRequest_shouldAlsoGiveReturnObject() {
+        val content = "This is the content"
+        val path = "MYPATH"
+        val id = 1337
+
+        val payload = """{"content": "$content"}"""
+
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.post("/example/$path/$id")
+                    .content(payload)
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("$.path").value(path))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.someNumber").value(id))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.query").value(content))
     }
 }
