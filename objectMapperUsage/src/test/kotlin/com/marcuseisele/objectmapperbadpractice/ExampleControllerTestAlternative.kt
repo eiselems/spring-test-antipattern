@@ -1,6 +1,5 @@
 package com.marcuseisele.objectmapperbadpractice
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -12,13 +11,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @WebMvcTest(ExampleController::class)
 @AutoConfigureMockMvc
-internal class ExampleControllerTest {
+internal class ExampleControllerTestAlternative {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
-
-    @Autowired
-    private lateinit var objectMapper: ObjectMapper
 
     @Test
     fun getExampleResponse_givenValidRequest_shouldReturnMappedObject() {
@@ -26,12 +22,12 @@ internal class ExampleControllerTest {
         val path = "MYPATH"
         val id = 1337
 
-        val payload = ExampleRequest(content)
+        val payload = """{"content": "$content"}"""
 
         mockMvc
             .perform(
                 MockMvcRequestBuilders.post("/example/$path/$id")
-                    .content(objectMapper.writeValueAsBytes(payload))
+                    .content(payload)
                     .contentType(MediaType.APPLICATION_JSON)
             )
             .andExpect(MockMvcResultMatchers.status().isOk)
