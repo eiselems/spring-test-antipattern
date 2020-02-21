@@ -13,10 +13,11 @@ class ExampleController {
         @PathVariable("path") path: String,
         @PathVariable("id") id: Int,
         @RequestBody body: ExampleRequest
-    ) = ExampleResponse(path = path, someNumber = id, query = body.content)
+    ) = ExampleResponse(path = path, someNumber = id, query = body.number.toString())
 }
 
 //data class ExampleRequest(val content: String)
-data class ExampleRequest(val content: String, val number: Int)
+//data class ExampleRequest(val content: String, val number: Int)
+data class ExampleRequest(val number: Int)
 
 data class ExampleResponse(val path: String, val someNumber: Int, val query: String)

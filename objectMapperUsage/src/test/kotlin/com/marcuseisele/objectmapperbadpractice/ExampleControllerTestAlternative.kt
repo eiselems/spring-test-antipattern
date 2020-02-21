@@ -18,11 +18,11 @@ internal class ExampleControllerTestAlternative {
 
     @Test
     fun getExampleResponse_givenValidRequest_shouldReturnMappedObject() {
-        val content = "This is the content"
         val path = "MYPATH"
         val id = 1337
+        val bodyNumber = 123
 
-        val payload = """{"content": "$content"}"""
+        val payload = """{"number": $bodyNumber}"""
 
         mockMvc
             .perform(
@@ -33,7 +33,7 @@ internal class ExampleControllerTestAlternative {
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.jsonPath("$.path").value(path))
             .andExpect(MockMvcResultMatchers.jsonPath("$.someNumber").value(id))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.query").value(content))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.query").value(bodyNumber.toString()))
 
     }
 }
