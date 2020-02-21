@@ -16,6 +16,7 @@ class ExampleController {
     ) = ExampleResponse(path = path, someNumber = id, query = body.content)
 }
 
-data class ExampleRequest(val content: String)
+//data class ExampleRequest(val content: String)
+data class ExampleRequest(val content: String, val number: Int)
 
 data class ExampleResponse(val path: String, val someNumber: Int, val query: String)

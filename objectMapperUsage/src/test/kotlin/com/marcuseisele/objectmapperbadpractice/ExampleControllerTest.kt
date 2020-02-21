@@ -25,8 +25,9 @@ internal class ExampleControllerTest {
         val content = "This is the content"
         val path = "MYPATH"
         val id = 1337
+        val bodyNumber = 123
 
-        val payload = ExampleRequest(content)
+        val payload = ExampleRequest(content, bodyNumber)
 
         mockMvc
             .perform(
